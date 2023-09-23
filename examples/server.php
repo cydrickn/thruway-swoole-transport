@@ -15,7 +15,6 @@ $router->addTransportProvider($transportProvider);
 
 $server->addListener(WebsocketServer::EVENT_SERVER_START, function () use ($transportProvider, $server) {
     \Thruway\Logging\Logger::info($transportProvider, 'Websocket listening on 0.0.0.0:9000');
-    $server->shutdown();
 });
 
 $router->start(false);
