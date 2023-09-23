@@ -1,0 +1,28 @@
+{
+    "name": "cydrickn/thruway-swoole-transport",
+    "description": "Swoole Transport for Thruway",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Thruway\\SwooleTransport\\": "src/",
+            "Thruway\\SwooleTransport\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Cydrick Nonog",
+            "email": "cydrick.dev@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "ext-openswoole": "*"
+    },
+    "require-dev": {
+        "voryx/thruway": "^0.6.1",
+        "openswoole/ide-helper": "^22.0",
+        "phpunit/phpunit": "^10.3",
+        "mockery/mockery": "^1.6"
+    }
+}
