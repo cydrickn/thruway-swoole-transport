@@ -2,7 +2,18 @@
 
 OpenSwoole / Swoole Websocket Transport for Thruway Router
 
-## How to use
+## Prerequisite:
+- PHP version >= 8.1
+- [OpenSwoole](https://openswoole.com/docs/get-started/installation)
+- [voryx/thruway](https://github.com/voryx/Thruway)
+
+## Installation
+
+```sh
+composer require cydrickn/thruway-swoole-transport
+```
+
+## Example
 
 ### Ouside the worker start
 
