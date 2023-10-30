@@ -131,4 +131,9 @@ class WebsocketServer
     {
         $this->eventDispatcher->addListener($event, $callback, $priority);
     }
+
+    public function getRootServer(): Server
+    {
+        return $this->server;
+    }
 }
