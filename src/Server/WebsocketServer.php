@@ -37,11 +37,14 @@ class WebsocketServer
     private EventDispatcherInterface $eventDispatcher;
     private bool $started = false;
 
-    public function __construct(public readonly string $host, public readonly int $port = 0)
-    {
+    public function __construct(
+        public readonly string $host,
+        public readonly int $port = 0,
+        public readonly int $workerNum = 1
+    ) {
         $this->server = new Server($host, $port, BaseServer::POOL_MODE, Constant::SOCK_TCP);
         $this->server->set([
-            'worker_num' => 1,
+            'worker_num' => $this->workerNum,
             'websocket_subprotocol' => 'wamp.2.json',
             'open_websocket_close_frame' => true,
             'open_websocket_ping_frame' => true,
