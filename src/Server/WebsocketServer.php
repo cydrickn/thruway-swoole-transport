@@ -3,6 +3,7 @@
 namespace Thruway\SwooleTransport\Server;
 
 use Thruway\SwooleTransport\Connection\Connection;
+use Thruway\SwooleTransport\Event\ConnectionCloseEvent;
 use Thruway\SwooleTransport\Event\ConnectionMessageEvent;
 use Thruway\SwooleTransport\Event\ConnectionOpenEvent;
 use OpenSwoole\Constant;
@@ -79,6 +80,21 @@ class WebsocketServer
             // TODO: Implement OP_CLOSE, OP_PING, OP_PONG
 
             $connection = $this->connections[$frame->fd];
+            if ($frame->opcode === Server::WEBSOCKET_OPCODE_CLOSE) {
+                // Implement opcode close
+                return;
+            } elseif ($frame->opcode === Server::WEBSOCKET_OPCODE_PING) {
+                $pongFrame = new Frame;
+                // Setup a new data frame to send back a pong to the client
+                $pongFrame->opcode = Server::WEBSOCKET_OPCODE_PONG;
+                $server->push($frame->fd, $pongFrame);
+
+                return;
+            } elseif ($frame->opcode === Server::WEBSOCKET_OPCODE_PONG) {
+                // Implement opcode poing
+                return;
+            }
+
             $this->eventDispatcher->dispatch(self::EVENT_CONNECTION_MESSAGE, new ConnectionMessageEvent($connection, $frame->data));
         });
 
@@ -86,7 +102,7 @@ class WebsocketServer
             if (array_key_exists($fd, $this->connections)) {
                 $connection = $this->connections[$fd];
                 unset($this->connections[$fd]);
-                $this->eventDispatcher->dispatch(self::EVENT_CONNECTION_CLOSE, new ConnectionOpenEvent($connection));
+                $this->eventDispatcher->dispatch(self::EVENT_CONNECTION_CLOSE, new ConnectionCloseEvent($connection));
             }
         });
 
