@@ -25,8 +25,9 @@ class SwooleTransport extends AbstractTransport
     public function getTransportDetails(): array
     {
         return [
-            'type'             => 'openswoole',
-            'headers'          => $this->connection->getRequest()->header,
+            'type' => 'openswoole',
+            'headers' => $this->connection->getRequest()->header,
+            'server' => $this->connection->getRequest()->server,
         ];
     }
 
